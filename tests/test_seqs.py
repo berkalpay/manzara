@@ -11,6 +11,12 @@ def test_seq_equality():
     assert Seq("000") is not Seq("000")
 
 
+def test_space_equality():
+    assert Space(2, ("0", "1")) == Space(2, ("1", "0"))
+    assert Space(2, ("0", "1")) != Space(3, ("1", "0"))
+    assert Space(2, ("0", "1")) != Space(2, ("1", "3"))
+
+
 def test_space_size():
     space = Space(5, range(10))
     assert len(list(space.seqs)) == len(space) == 10**5
@@ -29,6 +35,13 @@ def test_space_seqs():
         Seq("21"),
         Seq("22"),
     }
+
+
+def test_space_contains():
+    space = Space(3, ("0", "1", "2"))
+    assert space.contains(Seq("002"))
+    assert not space.contains(Seq("00"))
+    assert not space.contains(Seq("300"))
 
 
 def test_seq_border():
