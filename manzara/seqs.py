@@ -66,6 +66,9 @@ class Space:
     def __len__(self):
         return len(self.alphabet) ** self.seq_len
 
+    def __contains__(self, seq: Seq):
+        return set(seq).issubset(self.alphaset) and len(seq) == self.seq_len
+
     def __repr__(self):
         return f"Space(seq_len={self.seq_len}, alphabet={self.alphabet})"
 
@@ -85,9 +88,6 @@ class Space:
         """All the sequences in the space."""
         for seq in itertools.product(self.alphabet, repeat=self.seq_len):
             yield Seq(seq)
-
-    def contains(self, seq: Seq) -> bool:
-        return set(seq).issubset(self.alphaset) and len(seq) == self.seq_len
 
     def border(self, seq: Seq, k: int = 1) -> Iterator[Seq]:
         """All the sequences exactly a k-mutation distance from the given sequence."""

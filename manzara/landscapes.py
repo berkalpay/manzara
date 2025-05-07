@@ -47,7 +47,7 @@ class FitnessLandscape(ABC):
         """
         Compute the fitness of the given seq, ensuring consistency if enabled.
         """
-        assert self.space.contains(seq)
+        assert seq in self.space
         if self.store:
             return self._visited(seq)
         return self._fitness(seq)

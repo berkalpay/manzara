@@ -39,9 +39,9 @@ def test_space_seqs():
 
 def test_space_contains():
     space = Space(3, ("0", "1", "2"))
-    assert space.contains(Seq("002"))
-    assert not space.contains(Seq("00"))
-    assert not space.contains(Seq("300"))
+    assert Seq("002") in space
+    assert Seq("00") not in space
+    assert Seq("300") not in space
 
 
 def test_seq_border():
