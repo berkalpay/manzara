@@ -30,7 +30,7 @@ def test_flat_nk_model(spaces, k):
 def test_smooth_nk_model(spaces):
     model = landscapes.NK(space=spaces["medium"], k=0)
     seq1 = Seq([0] * 5)
-    seq2 = seq1.substitute([0], [3])
+    seq2 = seq1.substituted([0], [3])
     contribution_diff = model.contribution(seq2, 0) - model.contribution(seq1, 0)
     assert contribution_diff
     assert model.fitness(seq2) - model.fitness(seq1) == pytest.approx(contribution_diff)
@@ -41,7 +41,7 @@ def test_rough_nk_model(spaces):
     model = landscapes.NK(space=space, k=space.seq_len - 1)
     seq1 = Seq([space.alphabet[0]] * space.seq_len)
     seq1_contributions = [model.contribution(seq1, locus) for locus in space.loci]
-    seq2 = seq1.substitute([0], [space.alphabet[1]])
+    seq2 = seq1.substituted([0], [space.alphabet[1]])
     seq2_contributions = [model.contribution(seq2, locus) for locus in space.loci]
     assert not set(seq1_contributions).intersection(seq2_contributions)
 

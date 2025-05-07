@@ -40,7 +40,7 @@ class Seq(Sequence):
         for locus_combination in itertools.combinations(self.loci, k):
             yield tuple((locus, self[locus]) for locus in locus_combination)
 
-    def substitute(self, loci: Iterable[int], substitutions: Iterable) -> Self:
+    def substituted(self, loci: Iterable[int], substitutions: Iterable) -> Self:
         """Create a sequence with the given substitutions corresponding to the given loci."""
         new_seq = list(self.seq)
         for locus, new in zip(loci, substitutions):
@@ -94,7 +94,7 @@ class Space:
         for loci in itertools.combinations(seq.loci, k):
             allele_choices = [self.alphaset.difference([seq[locus]]) for locus in loci]
             for substitutions in itertools.product(*allele_choices):
-                yield seq.substitute(loci, substitutions)
+                yield seq.substituted(loci, substitutions)
 
     def neighborhood(self, seq: Seq, radius: int = 1) -> Iterator[Seq]:
         """
